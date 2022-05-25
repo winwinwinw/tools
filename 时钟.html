@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style>
+        body {
+            background: #000;
+            color:#fff;
+            text-align: center;
+        }
+        #date {
+            margin-top: 6vh;
+            font-size: 24vh;
+        }
+        #time {
+            font-size:38vh;
+        }
+    </style>
+</head>
+<body>
+<div id="date">222</div>
+<div id="time">111</div>
+<script>
+    let timer = null
+    let showSymbol = true
+    function getDateFormat (now) {
+        let month = now.getMonth() + 1
+        let date = now.getDate()
+        let day = now.getDay()
+        let weeks = '日一二三四五六'.split('')
+        let week = '周' + weeks[day]
+        let hour = now.getHours()
+        let minutes = now.getMinutes()
+        return {
+            month,
+            date,
+            day,
+            week,
+            hour,
+            minutes
+        }
+    }
+    function clock (){
+        let now = new Date()
+        let {month,date,week,hour,minutes} = getDateFormat(now)
+        // let seconds = now.getSeconds()
+        let symbol = showSymbol ? '<span>:</span>' : '<span style="color:#000">:</span>'
+        document.querySelector('#date').innerHTML = completion(month) + '月' + completion(date) + '日'  + ' ' + week
+        document.querySelector('#time').innerHTML = completion(hour) + symbol + completion(minutes)
+        showSymbol = !showSymbol
+    }
+    clock()
+    function completion (number) { //  补 0
+        if(number < 10){
+            return '0' +number
+        }
+        return number
+    }
+    timer = setInterval(()=>{
+        clock()
+    },1000)
+</script>
+</body>
+</html>
